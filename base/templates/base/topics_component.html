@@ -1,0 +1,15 @@
+<h2 class="display-5">Types de service</h2>        
+        <hr>
+        <div>
+            <a class="nav-link" href = "{% url 'home' %}">
+                <h4>Tous       ({{service_count}})</h4>
+            </a>
+        </div>
+
+        {% for topic in topics %}
+            <div>
+                <a class="nav-link" href = "{% url 'home' %}?q={{topic.name}}">
+                    <h4>{{topic.name}} {{topic_count}}</h4>
+                </a>
+            </div>
+        {% endfor %}

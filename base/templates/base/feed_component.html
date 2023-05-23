@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            background-color: #f2f2f2;
+            font-family: Arial, sans-serif;
+        }
+        
+        .service {
+            background-color: #ffffff;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .boite:hover {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+        
+        .service a {
+            text-decoration: none;
+            color: #337ab7;
+            transition: color 0.3s ease-in-out;
+        }
+        
+        .service a:hover {
+            color: #23527c;
+        }
+        
+        .service h5 {
+            margin: 0;
+            font-size: 18px;
+            color: #333333;
+            transition: color 0.3s ease-in-out;
+        }
+        
+        .service h5 a {
+            color: #333333;
+            transition: color 0.3s ease-in-out;
+        }
+        
+        .service h5 a:hover {
+            color: #555555;
+        }
+        
+        .service small {
+            color: #777777;
+        }
+        
+        .service hr {
+            border-color: #dddddd;
+            margin-top: 10px;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="service">
+        {% for service in services %}
+            <div class="boite container-fluid mt-2 border border-dark-subtle rounded-3 shadow-sm" >
+                <div class="row">
+                    <div class="col-3">
+                        <img src={{service.image.url}} class="img-thumbnail p-2 m-2"/>
+                    </div>
+                    <div class="col-5">
+                        {% if request.user == service.host %}
+                        <h5><a class="nav-link" href="{% url 'message' service.id %}">{{service.name}}</a></h5>
+                        {% else %}
+                        <h5><a class="nav-link" href="{% url 'service' service.id %}">{{service.name}}</a></h5>
+                        {% endif %}
+                        <h5>{{service.montant}}$</h5>
+                        <p>{{service.topic.name}}</p>
+                    </div>
+                    
+                    <div class="col-4">
+                        <div><a class="nav-link float-end" href="{% url 'user-profile' service.host.id %}">@{{service.host.username}}</a></div>
+                        <br>
+                        {% if request.user == service.host %}
+                        <div><a class="nav-link float-end" href = "{% url 'update-service' service.id %}">Modifier</a></div>
+                        <br>
+                        <div><a class="nav-link float-end" href = "{% url 'delete-service' service.id %}">Supprimer</a></div>
+
+                        {% endif %}
+
+                        
+                    </div>
+
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

@@ -1,0 +1,13 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<div class="container pt-5 container-fluid">
+<form method = "POST" action="">
+    {% csrf_token %}
+    <h3> Êtes-vous sur de vouloir supprmier "{{obj}}"?</h3>
+
+    <a href = "{{request.META.HTTP_REFERER}}">Retour</a>
+    <input type="submit" value = "Soumettre" />
+</form>
+</div>
+{% endblock content %}
